@@ -20,11 +20,7 @@ def checker(num1,num2):
         a = False
     return a
 
-#Checkea la condicion del juego:
-#1 si el jugador 1 gana
-#2 si el jugador 2 gana
-#3 si se produce un empate
-#0 si el juego continua
+#Checkea la condicion del juego: #1 si el jugador 1 gana #2 si el jugador 2 gana #3 si se produce un empate #0 si el juego continua
 def wincondition(total,player1,player2):
     a = (total/2)
     win = 0
