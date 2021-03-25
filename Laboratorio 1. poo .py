@@ -52,21 +52,61 @@ def cardlist(cartas,total):
     a = int(total/2)
     part1 = []
     part2 = []
-    part1b = []
-    part2b = []
 
     while i < a:
-        part1.append(cartas[i])
-        part1b.append("1,"+ str(i+1))
+        part1.append([cartas[i],("1,"+ str(i+1))])
         i+=1
     while a < total:
-        part2.append(cartas[a])
-        part2b.append("2,"+ str(i2+1))
+        part2.append([cartas[a],("2,"+ str(i2+1))])
         i2+=1
         a+=1
-    return part1,part2,part1b,part2b
-
-
+    return part1,part2
+#Funcion que printea un tablero según lista de cartas
+def printboard(part1,part2,num):
+    i=0
+    i2=0
+    cardstring = ""
+    if num != "?":
+        while i < len(part1):
+            value =  part1[i][1] 
+            if value == num:
+                cardstring = cardstring + " |" + str(part1[i][0]) + "| "
+                i+=1
+            if value != num:
+                cardstring = cardstring + " |?| "
+                i+=1
+        cardstring = cardstring + "\n"
+        while i2 < len(part2):
+            value = part2[i2][1]
+            if value == num:
+                cardstring = cardstring + " |" + str(part1[i2][0]) + "| "
+                i2+=1
+            if value != num:
+                cardstring = cardstring + " |?| "
+                i2+=1
+    else:
+        while i < len(part1):
+            value = part1[i][0]
+            cardstring = cardstring + " |?| "
+            i+=1
+        cardstring = cardstring + "\n"
+        while i2 < len(part2):
+            value = part2[i2][0]
+            cardstring = cardstring + " |?| "
+            i2+=1
+    return cardstring
+#Cambia valor de carta ya fuera de juego
+def pointcheck(value,list1):
+    i=0
+    list2 = []
+    while i < len(list1):
+        if value == list1[i][0]:
+            list2.append(["X",list1[i][1]])
+            i+=1
+        else:
+            list2.append(list1[i])
+            i+=1
+    return list2
 #######################################################################
 
 a = int(input("Ingrese número de cartas a jugar por jugador\n"))
@@ -83,6 +123,8 @@ total = len(cartas)
 win = 0
 choice = 0
 choice2 = 0
+part1 = (cardlist(cartas,total))[0]
+part2 = (cardlist(cartas,total))[1]
 
 while win == 0:
     if playerturn1 == 1:
