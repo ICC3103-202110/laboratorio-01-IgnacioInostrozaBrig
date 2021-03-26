@@ -35,14 +35,18 @@ def cardlist(cartas,total):
     a = int(total/2)
     part1 = []
     part2 = []
+    partx = []
     while i < a:
         part1.append([cartas[i],("1,"+ str(i+1))])
+        partx.append([cartas[i],("1,"+ str(i+1))])
         i+=1
     while a < b:
         part2.append([cartas[a],("2,"+ str(i2+1))])
+        partx.append([cartas[a],("2,"+ str(i2+1))])
         i2+=1
         a+=1
-    return part1,part2
+    
+    return part1,part2,partx
 
 def initialcards(cartas,total):
     i = 0
@@ -70,10 +74,15 @@ player2score = 0
 print("\n")
 cartas = cardmaker(a/2)
 total = a/2
+partx = cardlist(cartas,len(cartas))[2]
+print(partx)
 part1 = cardlist(cartas,len(cartas))[0]
 part2 = cardlist(cartas,len(cartas))[1]
 part3 = initialcards(cartas,len(cartas))[0]
 part4 = initialcards(cartas,len(cartas))[1]
+print(cartas)
+print(part1)
+print(part2)
 print("TABLERO INICIAL\n")
 print(part3)
 print(part4)
