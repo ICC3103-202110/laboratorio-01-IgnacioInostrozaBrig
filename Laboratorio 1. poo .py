@@ -1,6 +1,6 @@
 import random
-#ver Lab1 ver0.7
-#Crea una lista con los numeros asociados a cada carta
+#ver Lab1 ver0.9
+#Creates a random list with every possible card number
 def cardmaker(num):
     i = 1
     list = []
@@ -12,12 +12,10 @@ def cardmaker(num):
         random.shuffle(list)
     return list
 
-#Checkea la condicion del juego:
-#1 si el jugador 1 gana #2 si el jugador 2 gana
-#3 si se produce un empate #0 si el juego continua
+#Checks game condition: 1.Player1 wins 2.Player2 wins
+# 3. If there's a tie and 0. if the game continues as normal
 def wincondition(total,player1,player2):
     a = float((total/2))
-    print(a)
     win = 0
     if (float(player1)) > (a):
         win = 1
@@ -27,8 +25,8 @@ def wincondition(total,player1,player2):
         win = 3
     return win
 
-#Funcion encargada de organizar las cartas y asignarles coord
-def cardlist(cartas,total):
+#Organizes cards and cordinates
+def cardlist(cards,total):
     i = 0
     i2 = 0
     b = int(total)
@@ -37,18 +35,19 @@ def cardlist(cartas,total):
     part2 = []
     partx = []
     while i < a:
-        part1.append([cartas[i],("1,"+ str(i+1))])
-        partx.append([cartas[i],("1,"+ str(i+1))])
+        part1.append([cards[i],("1,"+ str(i+1))])
+        partx.append([cards[i],("1,"+ str(i+1))])
         i+=1
     while a < b:
-        part2.append([cartas[a],("2,"+ str(i2+1))])
-        partx.append([cartas[a],("2,"+ str(i2+1))])
+        part2.append([cards[a],("2,"+ str(i2+1))])
+        partx.append([cards[a],("2,"+ str(i2+1))])
         i2+=1
         a+=1
     
     return part1,part2,partx
 
-def initialcards(cartas,total):
+#Builds initial board
+def initialcards(cards,total):
     i = 0
     i2 = 0
     b = int(total)
@@ -63,77 +62,126 @@ def initialcards(cartas,total):
         i2+=1
         a+=1
     return part1,part2
+
+#Finds specific card value using the cordinates
+def cardfinder(cards,coord):
+    for card in cards:
+        if card[1] == coord:
+            value = card[0]
+            return value
+    return False
+
 #######################################################################
-
-a = int(input("Ingrese número de cartas a jugar por jugador\n"))
-
+a = int(input("Enter number of total cards to play (Must be pair)\n"))
 playerturn1 = 1
 playerturn2 = 0
 player1score = 0
 player2score = 0
 print("\n")
-cartas = cardmaker(a/2)
+cards = cardmaker(a/2)
 total = a/2
-partx = cardlist(cartas,len(cartas))[2]
+partx = cardlist(cards,len(cards))[2]
 print(partx)
-part1 = cardlist(cartas,len(cartas))[0]
-part2 = cardlist(cartas,len(cartas))[1]
-part3 = initialcards(cartas,len(cartas))[0]
-part4 = initialcards(cartas,len(cartas))[1]
-print(cartas)
-print(part1)
-print(part2)
-print("TABLERO INICIAL\n")
+part1 = cardlist(cards,len(cards))[0]
+part2 = cardlist(cards,len(cards))[1]
+part3 = initialcards(cards,len(cards))[0]
+part4 = initialcards(cards,len(cards))[1]
+print("INITIAL BOARD\n")
 print(part3)
 print(part4)
 print("\n")
-#Bucle de juego principal
+#Main game loop
 win = 0
 choice = 0
 choice2 = 0
-
+value1 = 0
+value2 = 0
+i3 = 0
+i4 = 0
 while win == 0:
     if playerturn1 == 1:
-        print("turno jugador 1")
+        print("Player 1 turn")
         choice = str(input())
+        value1 = cardfinder(partx, choice)
+        while i3 < len(part3):
+            if choice == part3[i3][1]:
+                part3[i3][0] = " "+str(value1)+" "
+                i3+=1
+            else:
+                i3+=1
+        while i4 < len(part4):
+            if choice == part4[i4][1]:
+                part4[i4][0] =" "+str(value1)+" "
+                i4+=1
+            else:
+                i4+=1
+
+        print("Player selected card: ", choice)
+        print(part3)
+        print(part4)
         choice2 = str(input())
-        if choice != choice2:
+        value2 = cardfinder(partx, choice2)
+        i3 = 0
+        i4 = 0
+        while i3 < len(part3):
+            if choice2 == part3[i3][1]:
+                part3[i3][0] = " "+str(value2)+" "
+                i3+=1
+            else:
+                i3+=1
+        while i4 < len(part4):
+            if choice2 == part4[i4][1]:
+                part4[i4][0] =" "+str(value2)+" "
+                i4+=1
+            else:
+                i4+=1
+        print("Player selected card: ", choice2)
+        print(part3)
+        print(part4)
+        i3 = 0
+        i4 = 0
+
+        if value1 != value2:
             playerturn1 = 0
             playerturn2 = 1
             choice = 0
             choice2 = 0
+            value1 = 0
+            value2 = 0
         else:
             player1score+=1
             win = wincondition(total,player1score,player2score)
             playerturn1 = 1
             playerturn2 = 0
-            print(player1score)
-            print(win)
+            value1 = 0
+            value2 = 0
 
     if playerturn2 == 1:
-        print("turno jugador 2")
+        print("Player 2 turn")
         choice = str(input())
+        value1 = cardfinder(partx, choice)
         choice2 = str(input())
-        if choice != choice2:
+        value2 = cardfinder(partx, choice2)
+        if value1 != value2:
             playerturn1 = 1
             playerturn2 = 0
-            choice = 0
-            choice2 = 0
+            value1 = 0
+            value2 = 0
         else:
             player2score+=1
             win = wincondition(total,player1score,player2score)
             playerturn1 = 0
             playerturn2 = 1
-            print(player2score)
-            print(win)
+            value1 = 0
+            value2 = 0
     if win == 1:
-        print("Gana jugador 1")
+        print("Player 1 wins")
         break
     if win == 2:
-        print("Gana jugador 2")
+        print("Player 2 wins")
         break
     if win == 3:
-        print("Empate")
+        print(" Tie ")
         break
         
         
