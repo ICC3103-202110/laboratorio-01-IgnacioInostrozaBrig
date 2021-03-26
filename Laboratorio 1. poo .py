@@ -86,8 +86,7 @@ part1 = cardlist(cards,len(cards))[0]
 part2 = cardlist(cards,len(cards))[1]
 part3 = initialcards(cards,len(cards))[0]
 part4 = initialcards(cards,len(cards))[1]
-
-#Main game loop
+############### Main game loop ########################################
 win = 0
 choice = 0
 choice2 = 0
@@ -182,7 +181,7 @@ while win == 0:
             playerturn2 = 0
             value1 = 0
             value2 = 0
-
+    
     if playerturn2 == 1:
         print("Player 2 turn\n")
         choice = str(input())
@@ -275,8 +274,17 @@ while win == 0:
         print(" Tie \n")
         break
         
-        
-        
+#Comments and considerations
+
+#Coded by IgnacioInostrozaBrig
+
+#How to play? Each player inputs the cordinates of the cards to reveal the value
+# When two cards match value, the player scores a point and the turn repeats
+# The first player to flip correctly more than half of the board wins
+
+# Known bugs
+# - If a player inputs the same cordinate twice, the code will malfunction
+# - If a player inputs a non existent cordinate, the game will stop
     
     
 
