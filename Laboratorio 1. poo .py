@@ -279,12 +279,12 @@ while win == 0:
 #Coded by IgnacioInostrozaBrig
 
 #How to play? Each player inputs the cordinates of the cards to reveal the value
-# When two cards match value, the player scores a point and the turn repeats
-# The first player to flip correctly more than half of the board wins
+#When two cards match value, the player scores a point and the turn repeats
+#The first player to flip correctly more than half of the board wins
 
-# Known bugs
-# - If a player inputs the same cordinate twice, the code will malfunction
-# - If a player inputs a non existent cordinate, the game will stop
+#Known bugs
+#If a player inputs the same cordinate twice, the code will malfunction
+#If a player inputs a non existent cordinate, the game will stop
     
     
 
